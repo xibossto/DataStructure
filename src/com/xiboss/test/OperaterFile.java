@@ -1,6 +1,8 @@
 package com.xiboss.test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 /**
  * 操作文件-批量重名名
@@ -8,8 +10,14 @@ import java.io.File;
  *
  */
 public class OperaterFile {
-	public static void main(String[] args) {
-		
+
+	private static ArrayList<Object> scanFiles = new ArrayList<Object>();
+	private static int count=0;
+	
+	public static void main(String[] args) throws FileNotFoundException {
+		String path = "E:\\IOS开发\\2016年最新Objective-C-video" ;
+		scanFilesWithRecursion(path) ;
+		System.out.println("count:"+count) ;
 	}
 	
 	  /**
@@ -18,17 +26,51 @@ public class OperaterFile {
      * @param dirPath
      * @param prefix
      */
-    public static void renameFiles(String dirPath,String prefix){
+    public static void renameFiles(String dirPath,String newFileName){
         File file=new File(dirPath);
         if(!file.isDirectory()){
             return;
         }
         File files[]=file.listFiles();
-        int index=1;
+//        int index=1;
 
         for(File f:files){
-            File newFile=new File(dirPath,prefix+String.valueOf(index++)+".png");
+//            File newFile=new File(dirPath,prefix+String.valueOf(index++)+".mp4");
+            File newFile=new File(dirPath,newFileName+".mp4");
             f.renameTo(newFile);
         }
     }
+    
+    
+    /**
+	 * TODO:递归扫描指定文件夹下面的指定文件
+	 * @return ArrayList<Object>
+	 * @throws FileNotFoundException 
+	 */
+	public static void scanFilesWithRecursion(String folderPath) throws FileNotFoundException{
+		File directory = new File(folderPath);
+		if(!directory.isDirectory()){
+			System.out.println("扫描结束！");
+			throw new FileNotFoundException('"' + folderPath + '"' + " input path is not a Directory , please input the right path of the Directory. ^_^...^_^");
+		}
+		if(directory.isDirectory()){
+			File [] filelist = directory.listFiles();
+			for(int i = 0; i < filelist.length; i ++){
+				/**如果当前是文件夹，进入递归扫描文件夹**/
+				if(filelist[i].isDirectory()){
+					/**递归扫描下面的文件夹**/
+					count++;
+					scanFilesWithRecursion(filelist[i].getAbsolutePath());
+				}else{			
+					/**非文件夹**/
+					scanFiles.add(filelist[i].getAbsolutePath());
+					System.out.println(filelist[i].getAbsolutePath());
+//					if (filelist[i].getName().contains("_传智播客iOS视频教程")) {
+//						filelist[i].renameTo(new File(filelist[i].getAbsoluteFile()+filelist[i].getName().replace("_传智播客iOS视频教程", "")));
+//					 }
+				}
+			}
+		}
+	}
+    
 }
