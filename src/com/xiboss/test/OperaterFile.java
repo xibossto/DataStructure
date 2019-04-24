@@ -15,7 +15,7 @@ public class OperaterFile {
 	private static int count=0;
 	
 	public static void main(String[] args) throws FileNotFoundException {
-		String path = "E:\\IOS开发\\2016年最新Objective-C-video" ;
+		String path = "E:\\IOS开发\\2016年最新Objective-C-video\\" ;
 		scanFilesWithRecursion(path) ;
 		System.out.println("count:"+count) ;
 	}
@@ -64,10 +64,11 @@ public class OperaterFile {
 				}else{			
 					/**非文件夹**/
 					scanFiles.add(filelist[i].getAbsolutePath());
-					System.out.println(filelist[i].getAbsolutePath());
-//					if (filelist[i].getName().contains("_传智播客iOS视频教程")) {
-//						filelist[i].renameTo(new File(filelist[i].getAbsoluteFile()+filelist[i].getName().replace("_传智播客iOS视频教程", "")));
-//					 }
+					System.out.println(filelist[i]);
+					if (filelist[i].getName().contains("Day02-类与对象")) {
+//						filelist[i].renameTo(new File(filelist[i].getAbsoluteFile()+filelist[i].getName().replace("Day01-Objective-C语法基础", "")));
+						filelist[i].renameTo(new File(folderPath+filelist[i].getName().replace("Day02-类与对象", "")));
+					 }
 				}
 			}
 		}
