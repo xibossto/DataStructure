@@ -13,10 +13,10 @@ public class OperaterFile {
 
 	private static ArrayList<Object> scanFiles = new ArrayList<Object>();
 	private static int count=0;
-	private static String remove = "Day10-Foundation框架" ;
+	private static String AD = "Day10-Foundation框架" ;
 	
 	public static void main(String[] args) throws FileNotFoundException {
-		String path = "E:\\IOS开发\\2016年最新Objective-C-video\\"+remove+"\\" ;
+		String path = "E:\\IOS开发\\2016年最新Objective-C-video\\"+AD+"\\" ;
 		System.out.println(path.length());
 		scanFilesWithRecursion(path) ;
 		System.out.println("count:"+count) ;
@@ -67,9 +67,9 @@ public class OperaterFile {
 					/**非文件夹**/
 					scanFiles.add(filelist[i].getAbsolutePath());
 					System.out.println(filelist[i]);
-					if (filelist[i].getName().contains(remove)) {
+					if (filelist[i].getName().contains(AD)) {
 //						filelist[i].renameTo(new File(filelist[i].getAbsoluteFile()+filelist[i].getName().replace("Day01-Objective-C语法基础", "")));
-						filelist[i].renameTo(new File(folderPath+filelist[i].getName().replace(remove, "")));
+						filelist[i].renameTo(new File(folderPath+filelist[i].getName().replace(AD, "")));
 					 }
 				}
 			}
